@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en" class="light-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compass Housing Society | Luxury Living Redefined</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #06B6BC;
+            --secondary: #F3F3FA;
+            --dark: #091638;
+            --transition-speed: 0.4s;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Merriweather', serif;
+            color: var(--dark);
+            background-color: var(--secondary);
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+        h1 { font-size: 46px; line-height: 1.2; }
+        h2 { font-size: 36px; line-height: 1.3; }
+        h3 { font-size: 24px; line-height: 1.4; }
+        h4, h5, h6 { font-size: 20px; line-height: 1.4; }
+        li, span, p { font-size: 18px; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding-left: 0; margin-bottom: 0; }
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("Images/transparent-logo.jpeg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 570px auto;
+            opacity: 0.10;
+            pointer-events: none;
+            z-index: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+        .dark-mode body::after {
+            opacity: 0.08;
+        }
+        .page-wrapper {
+            max-width: 1920px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            padding-top: 82px;
+            background-color: var(--secondary);
+            transition: background-color var(--transition-speed) ease;
+        }
+        .content-layer { position: relative; z-index: 1; }
+        .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: var(--primary);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+            transition: background-color var(--transition-speed) ease;
+        }
+        .navbar-custom { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 24px; 
+            position: relative;
+            padding: 12px 40px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: var(--secondary);
+        }
+        .brand img { 
+            width: 58px; 
+            height: 58px; 
+            object-fit: cover; 
+            border-radius: 8px; 
+            border: 2px solid var(--secondary); 
+            opacity: 0.97; 
+            background: var(--secondary); 
+            padding: 3px;
+            transition: all var(--transition-speed) ease;
+        }
+        .nav-menu { 
+            display: flex; 
+            align-items: center; 
+            gap: 24px; 
+            flex: 1; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+        }
+        .nav-item { position: relative; }
+        .nav-link-custom {
+            color: var(--secondary);
+            padding: 4px 0;
+            opacity: 0.9;
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            transition: color 0.25s ease;
+        }
+        .nav-link-custom::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0%;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.25s ease;
+        }
+        .nav-link-custom:hover::after { width: 100%; }
+        .dropdown-toggle-custom::after { content: " ▾"; position: static; width: auto; height: auto; background: none; margin-left: 4px; }
+        .dropdown-menu-custom {
+            position: absolute;
+            left: 0;
+            top: calc(100% + 6px);
+            background-color: #000000;
+            border-radius: 10px;
+            border: 1px solid rgba(243, 243, 250, 0.12);
+            min-width: 190px;
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            padding: 6px 0;
+            z-index: 120;
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .dropdown-menu-custom.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .dropdown-menu-custom li a {
+            display: block;
+            padding: 8px 18px;
+            color: var(--secondary);
+            white-space: nowrap;
+            opacity: 0.9;
+            transition: background-color 0.25s ease;
+        }
+        .dropdown-menu-custom li a:hover { background-color: rgba(6, 182, 188, 0.2); }
+        .nav-actions { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            margin-left: auto; 
+        }
+        .btn-register {
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-weight: 300;
+            cursor: pointer;
+            white-space: nowrap;
+            padding-inline: 10px;
+            font-family: 'Merriweather', serif;
+            transition: all var(--transition-speed) ease;
+        }
+        .theme-toggle-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .theme-toggle {
+            position: relative;
+            width: 56px;
+            height: 26px;
+            background: rgba(243, 243, 250, 0.2);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(243, 243, 250, 0.3);
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .theme-toggle::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary);
+            border-radius: 50%;
+            top: 2px;
+            left: 3px;
+            transition: all var(--transition-speed) cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 2;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .theme-toggle::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+        .dark-mode .theme-toggle {
+            background: rgba(9, 22, 56, 0.3);
+            border-color: rgba(6, 182, 188, 0.5);
+        }
+        .dark-mode .theme-toggle::before {
+            transform: translateX(30px);
+            background: #06B6BC;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        .dark-mode .theme-toggle::after {
+            opacity: 0.7;
+        }
+        .toggle-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: var(--secondary);
+            z-index: 1;
+            transition: opacity var(--transition-speed) ease;
+        }
+        .sun-icon {
+            left: 8px;
+            opacity: 0.9;
+        }
+        .moon-icon {
+            right: 8px;
+            opacity: 0.6;
+        }
+        .dark-mode .sun-icon {
+            opacity: 0.6;
+        }
+        .dark-mode .moon-icon {
+            opacity: 0.9;
+        }
+        .menu-toggle {
+            display: none;
+            border: 1px solid var(--secondary);
+            background: transparent;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+            color: var(--secondary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            transition: all var(--transition-speed) ease;
+        }
+        .nav-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 90;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .nav-overlay.active { opacity: 1; pointer-events: auto; }
+        .mobile-actions {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(243, 243, 250, 0.2);
+            margin-top: 20px;
+            width: 100%;
+        }
+        .mobile-actions .nav-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+        }
+        body.dark-mode {
+            background-color: #000000;
+            color: var(--secondary);
+        }
+        body.dark-mode .page-wrapper {
+            background-color: #000000;
+        }
+        body.dark-mode header {
+            background-color: #000000;
+        }
+        body.dark-mode .site-footer {
+            background-color: #000000;
+        }
+        body.dark-mode .nav-menu {
+            background: #000000;
+        }
+        body.dark-mode .dropdown-menu-custom {
+            background-color: #000000;
+        }
+        body.dark-mode .brand {
+            color: var(--secondary);
+        }
+        body.dark-mode .brand img {
+            border-color: var(--secondary);
+            background: #000000;
+        }
+        body.dark-mode .btn-register {
+            background-color: var(--secondary);
+            color: #000000;
+        }
+        .hero-section-home2 {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 60px 0 40px;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(9, 22, 56, 0.9);
+            z-index: -1;
+        }
+        .hero-content-home2 {
+            color: white;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero-subtitle {
+            font-size: 20px;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+        .hero-title-home2 {
+            font-size: 52px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+        .hero-description {
+            font-size: 20px;
+            margin-bottom: 35px;
+            opacity: 0.9;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-primary-custom {
+            background: var(--primary);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-secondary-custom {
+            background: transparent;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
+            border: 2px solid white;
+            cursor: pointer;
+        }
+        .stats-section {
+            padding: 40px 0 30px;
+        }
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        .stat-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        .dark-mode .stat-card {
+            background: #222;
+            color: var(--secondary);
+        }
+        .stat-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .stat-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+        .dark-mode .stat-title {
+            color: var(--secondary);
+        }
+        .featured-properties {
+            padding: 40px 0 30px;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        .dark-mode .section-title {
+            color: var(--secondary);
+        }
+        .section-subtitle {
+            font-size: 20px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .dark-mode .section-subtitle {
+            color: #aaa;
+        }
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .property-card {
+            background: var(--secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode .property-card {
+            background: #222;
+        }
+        .property-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .property-content {
+            padding: 25px;
+        }
+        .property-category {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .property-name {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+        .dark-mode .property-name {
+            color: var(--secondary);
+        }
+        .property-location {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            margin-bottom: 18px;
+            font-size: 16px;
+        }
+        .dark-mode .property-location {
+            color: #aaa;
+        }
+        .property-features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .dark-mode .property-features {
+            border-bottom-color: #444;
+        }
+        .feature {
+            text-align: center;
+        }
+        .feature i {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        .feature span {
+            display: block;
+            font-size: 14px;
+            color: #666;
+        }
+        .dark-mode .feature span {
+            color: #aaa;
+        }
+        .property-price {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 18px;
+        }
+        .property-price span {
+            font-size: 14px;
+            color: #666;
+            font-weight: normal;
+        }
+        .dark-mode .property-price span {
+            color: #aaa;
+        }
+        .amenities-section {
+            padding: 40px 0 30px;
+        }
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        .amenity-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        .dark-mode .amenity-card {
+            background: #222;
+            color: var(--secondary);
+        }
+        .amenity-icon {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .amenity-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+        .dark-mode .amenity-title {
+            color: var(--secondary);
+        }
+        .location-section {
+            padding: 40px 0 30px;
+        }
+        .location-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .location-map {
+            height: 450px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .location-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .location-info h3 {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            color: var(--dark);
+        }
+        .dark-mode .location-info h3 {
+            color: var(--secondary);
+        }
+        .location-list {
+            margin-bottom: 30px;
+        }
+        .location-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #555;
+        }
+        .dark-mode .location-list li {
+            color: #ccc;
+        }
+        .location-list i {
+            color: var(--primary);
+            font-size: 20px;
+        }
+        .cta-section {
+            padding: 50px 0 40px;
+            background: #091638;
+            color: white;
+            text-align: center;
+        }
+        .cta-title {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 25px;
+        }
+        .cta-description {
+            font-size: 20px;
+            margin-bottom: 35px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        .site-footer {
+            background: var(--primary);
+            color: var(--secondary);
+            font-size: 14px;
+            width: 100%;
+            padding-top: 20px;
+            transition: background-color var(--transition-speed) ease;
+        }
+        .footer-inner {
+            padding: 25px 0 15px;
+        }
+        .footer-brand-title {
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--secondary);
+        }
+        .footer-text { 
+            color: var(--secondary); 
+            margin-bottom: 10px; 
+            max-width: 260px; 
+        }
+        .footer-label { font-weight: 700; }
+        .footer-contact-line { 
+            margin-bottom: 4px; 
+        }
+        .footer-socials { 
+            display: flex; 
+            gap: 10px; 
+            margin-top: 12px; 
+        }
+        .footer-social { 
+            width: 28px; 
+            height: 28px; 
+            border-radius: 50%; 
+            border: 1px solid var(--secondary); 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: var(--secondary);
+        }
+        .footer-column-title { 
+            font-weight: 800; 
+            margin-bottom: 10px; 
+            color: var(--secondary); 
+        }
+        .footer-links li { 
+            margin-bottom: 4px; 
+            color: var(--secondary); 
+        }
+        .footer-links li a { color: inherit; }
+        .footer-single-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        .footer-single-image img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+        .footer-bottom { 
+            margin-top: 20px; 
+            text-align: center; 
+            color: var(--secondary); 
+            font-size: 18px; 
+            width: 100%;
+        }
+        @media (max-width: 1030px) {
+            .navbar-custom { 
+                padding: 10px 16px;
+                gap: 10px; 
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+            .brand {
+                order: 1;
+                flex: 1;
+            }
+            .nav-actions.desktop-actions {
+                display: none;
+            }
+            .menu-toggle {
+                display: inline-flex;
+                order: 3;
+                margin-left: 10px;
+                position: relative;
+                z-index: 120;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -280px;
+                width: 280px;
+                height: auto;
+                max-height: 90vh;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                background: #000000;
+                padding: 20px;
+                border-radius: 0 0 0 16px;
+                box-shadow: -12px 0 30px rgba(0, 0, 0, 0.85);
+                z-index: 110;
+                gap: 12px;
+                transition: right 0.3s ease;
+                border: 1px solid rgba(243, 243, 250, 0.6);
+                overflow-y: auto;
+                margin-top: 0;
+            }
+            body.dark-mode .nav-menu {
+                background: #000000;
+            }
+            .nav-menu.nav-open { right: 0; }
+            .nav-item { width: 100%; }
+            .nav-link-custom { width: 100%; padding: 10px 0; }
+            .dropdown-menu-custom { 
+                position: static; 
+                margin-top: 4px; 
+                background: transparent; 
+                border-radius: 0; 
+                border: none; 
+                box-shadow: none; 
+                padding: 0 0 4px 10px; 
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                pointer-events: auto;
+            }
+            .dropdown-menu-custom.show {
+                display: block;
+            }
+            .dropdown-menu-custom li a { padding: 8px 0; font-size: 15px; opacity: 0.85; }
+            .mobile-actions {
+                display: flex;
+            }
+            .menu-toggle {
+                margin-left: auto;
+                position: relative;
+                z-index: 120;
+            }
+            .nav-overlay {
+                display: none;
+            }
+            .theme-toggle-wrapper {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .hero-title-home2 {
+                font-size: 42px;
+            }
+            .location-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .location-map {
+                height: 350px;
+            }
+            .property-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 25px;
+            }
+        }
+        @media (max-width: 768px) {
+            .page-wrapper { padding-top: 70px; }
+            .hero-title-home2 {
+                font-size: 36px;
+            }
+            .hero-section-home2 {
+                min-height: 70vh;
+                padding: 50px 0 30px;
+            }
+            .section-title {
+                font-size: 36px;
+            }
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-primary-custom,
+            .btn-secondary-custom {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        @media (max-width: 576px) {
+            .page-wrapper { padding-top: 60px; }
+            .brand span { font-size: 14px; }
+            .brand img { width: 40px; height: 40px; }
+            .nav-menu {
+                width: 250px;
+                max-height: 85vh;
+                top: 60px;
+                right: -250px;
+            }
+            .mobile-actions { padding: 15px 0; }
+            .mobile-actions .nav-actions { flex-direction: column; gap: 10px; }
+            .menu-toggle { margin-left: 10px; }
+            .theme-toggle { width: 50px; height: 24px; }
+            .theme-toggle::before { width: 18px; height: 18px; }
+            .dark-mode .theme-toggle::before { transform: translateX(26px); }
+            .hero-title-home2 {
+                font-size: 32px;
+            }
+            .hero-description {
+                font-size: 18px;
+            }
+            .stat-number {
+                font-size: 36px;
+            }
+            .section-title {
+                font-size: 32px;
+            }
+            .cta-title {
+                font-size: 32px;
+            }
+        }
+        @media (max-width: 400px) {
+            .nav-menu { width: 220px; right: -220px; }
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 350px) {
+            .brand span { display: none; }
+            .brand { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="content-layer">
+            <div class="nav-overlay"></div>
+            <header>
+                <nav class="navbar-custom">
+                    <div class="brand">
+                        <img src="Images/logo.jpeg" alt="Compass Housing Society Logo">
+                        <span>Housing Compass<br> Society</span>
+                    </div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link-custom">Home1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="home2.html" class="nav-link-custom">Home2</a>
+                        </li>
+                        <li><a href="aboutus.html" class="nav-link-custom">About Us</a></li>
+                        <li class="nav-item dropdown">
+                            <span class="nav-link-custom dropdown-toggle-custom">Services</span>
+                            <ul class="dropdown-menu-custom">
+                                <li><a href="services.html">Services Page</a></li>
+                                <li><a href="servicedetails.html">Services Details Page</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <span class="nav-link-custom dropdown-toggle-custom">Blog</span>
+                            <ul class="dropdown-menu-custom">
+                                <li><a href="blog.html">Blog Page</a></li>
+                                <li><a href="blogdetails.html">Blog Details Page</a></li>
+                                <li><a href="additionalpage.html">Additional Pages</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contactus.html" class="nav-link-custom">Contact Us</a>
+                        </li>
+                        <div class="mobile-actions">
+                            <div class="nav-actions">
+                                <div class="theme-toggle-wrapper">
+                                    <div class="theme-toggle" aria-label="Toggle dark / light mode">
+                                        <span class="toggle-icon sun-icon">☀️</span>
+                                        <span class="toggle-icon moon-icon">🌙</span>
+                                    </div>
+                                </div>
+                                <a href="login.html">
+                                    <button class="btn-register" type="button">Login</button>
+                                </a>
+                            </div>
+                        </div>
+                    </ul>
+                    <div class="nav-actions desktop-actions">
+                        <div class="theme-toggle-wrapper">
+                            <div class="theme-toggle" aria-label="Toggle dark / light mode">
+                                <span class="toggle-icon sun-icon">☀️</span>
+                                <span class="toggle-icon moon-icon">🌙</span>
+                            </div>
+                        </div>
+                        <a href="login.html">
+                            <button class="btn-register" type="button">Login</button>
+                        </a>
+                    </div>
+                    <button class="menu-toggle" type="button" aria-label="Toggle menu">☰</button>
+                </nav>
+            </header>
+            <section class="hero-section-home2">
+                <div class="hero-bg"></div>
+                <div class="container">
+                    <div class="hero-content-home2">
+                        <h1 class="hero-title-home2">Discover Your Dream Home With Compass Housing</h1>
+                        <p class="hero-description">
+                            Experience luxury living with our meticulously designed residences. 
+                            Where modern architecture meets sustainable living for the perfect balance of comfort and style.
+                        </p>
+                        <div class="hero-buttons">
+                            <button class="btn-primary-custom" onclick="window.location.href='#properties'">
+                                <i class="fas fa-home"></i> View Properties
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="stats-section">
+                <div class="container">
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-number">25+</div>
+                            <h3 class="stat-title">Years of Excellence</h3>
+                            <p>Trusted real estate development experience</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">150+</div>
+                            <h3 class="stat-title">Projects Completed</h3>
+                            <p>Successful residential developments</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">5000+</div>
+                            <h3 class="stat-title">Happy Families</h3>
+                            <p>Satisfied residents across communities</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">98%</div>
+                            <h3 class="stat-title">Client Satisfaction</h3>
+                            <p>Highest satisfaction rate in the industry</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="featured-properties" id="properties">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Featured Properties</h2>
+                        <p class="section-subtitle">Explore our exclusive collection of premium residences designed for modern living</p>
+                    </div>
+                    <div class="property-grid">
+                        <div class="property-card">
+                            <div class="property-image">
+                                <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Apartment">
+                            </div>
+                            <div class="property-content">
+                                <span class="property-category">Luxury Apartment</span>
+                                <h3 class="property-name">Ocean View Residences</h3>
+                                <div class="property-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Marine Drive, Mumbai</span>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3 Beds</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>3 Baths</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-ruler-combined"></i>
+                                        <span>2800 sqft</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    ₹4.2 Crore
+                                    <span>Including Registration</span>
+                                </div>
+                                <button class="btn-primary-custom" onclick="window.location.href='contactus.html'">Book Site Visit</button>
+                            </div>
+                        </div>
+                        <div class="property-card">
+                            <div class="property-image">
+                                <img src="https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Penthouse">
+                            </div>
+                            <div class="property-content">
+                                <span class="property-category">Penthouse</span>
+                                <h3 class="property-name">Sky Garden Penthouse</h3>
+                                <div class="property-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Banerghatta Road, Bangalore</span>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>4 Beds</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4 Baths</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-ruler-combined"></i>
+                                        <span>3500 sqft</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    ₹6.8 Crore
+                                    <span>Including Registration</span>
+                                </div>
+                                <button class="btn-primary-custom" onclick="window.location.href='contactus.html'">Book Site Visit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="amenities-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Premium Amenities</h2>
+                        <p class="section-subtitle">Experience world-class facilities designed for your comfort and convenience</p>
+                    </div>
+                    <div class="amenities-grid">
+                        <div class="amenity-card">
+                            <div class="amenity-icon">
+                                <i class="fas fa-swimming-pool"></i>
+                            </div>
+                            <h3 class="amenity-title">Infinity Pool</h3>
+                            <p>Temperature-controlled infinity pool with panoramic city views</p>
+                        </div>
+                        <div class="amenity-card">
+                            <div class="amenity-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <h3 class="amenity-title">Fully Equipped Gym</h3>
+                            <p>State-of-the-art fitness center with personal trainers available</p>
+                        </div>
+                        <div class="amenity-card">
+                            <div class="amenity-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                            <h3 class="amenity-title">Landscaped Gardens</h3>
+                            <p>Beautifully maintained green spaces and walking trails</p>
+                        </div>
+                        <div class="amenity-card">
+                            <div class="amenity-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="amenity-title">24/7 Security</h3>
+                            <p>Advanced security systems with CCTV surveillance</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="cta-section">
+                <div class="container">
+                    <h2 class="cta-title">Ready to Find Your Dream Home?</h2>
+                    <p class="cta-description">
+                        Join thousands of satisfied families who have chosen Compass Housing for their perfect home. 
+                        Schedule a personal tour today and experience luxury living firsthand.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary-custom" onclick="window.location.href='contactus.html'">
+                            <i class="fas fa-calendar-alt"></i> Schedule Visit
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <section class="location-section">
+                <div class="container">
+                    <div class="location-content">
+                        <div class="location-info">
+                            <h3>Prime Location Advantage</h3>
+                            <p>Our properties are strategically located to provide the perfect balance of urban convenience and peaceful living.</p>
+                            <ul class="location-list">
+                                <li><i class="fas fa-check-circle"></i> 5 minutes from metro station</li>
+                                <li><i class="fas fa-check-circle"></i> 10 minutes from international schools</li>
+                                <li><i class="fas fa-check-circle"></i> 15 minutes from shopping malls</li>
+                                <li><i class="fas fa-check-circle"></i> 20 minutes from business districts</li>
+                                <li><i class="fas fa-check-circle"></i> 24/7 public transportation access</li>
+                                <li><i class="fas fa-check-circle"></i> Proximity to hospitals and healthcare</li>
+                            </ul>
+                        </div>
+                        <div class="location-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d497511.11463546684!2d77.30126581837853!3d12.954294534993533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1714567890123!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="site-footer" id="contact">
+                <div class="container">
+                    <div class="footer-inner">
+                        <div class="row footer-grid g-4">
+                            <div class="col-md-4">
+                                <div class="footer-brand-title">
+                                    <h4 class="footer-column-title">Compass Housing Society</h4>
+                                </div>
+                                <p class="footer-text">
+                                    Leading real estate developer creating sustainable, modern living spaces.</p>
+                                <p class="footer-contact-line">
+                                    <span class="footer-label">Phone:</span> +91-98765-43210
+                                </p>
+                                <p class="footer-contact-line">
+                                    <span class="footer-label">Email:</span> info@compasshousing.com
+                                </p>
+                                <div class="footer-socials">
+                                    <a href="http://www.facebook.com" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="http://www.twitter.com" class="footer-social"><i class="fab fa-twitter"></i></a>
+                                    <a href="http://www.instagram.com" class="footer-social"><i class="fab fa-instagram"></i></a>
+                                    <a href="http://www.youtube.com" class="footer-social"><i class="fab fa-youtube"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-6">
+                                <h4 class="footer-column-title">Quick Links</h4>
+                                <ul class="footer-links">
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="aboutus.html">About us</a></li>
+                                    <li><a href="services.html">Services</a></li>
+                                    <li><a href="blog.html">Blog</a></li>
+                                    <li><a href="contactus.html">Contact us</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-2 col-sm-6">
+                                <h4 class="footer-column-title">Properties</h4>
+                                <ul class="footer-links">
+                                    <li><a href="#">Luxury Apartments</a></li>
+                                    <li><a href="#">Gated Communities</a></li>
+                                    <li><a href="#">Commercial Spaces</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="footer-single-image">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNG5nNLSmMON82KTP72Ri6WREo9apamINs9JE9M4cERa_V_UdDfu2ZOubVQVVLbPFxLEM&usqp=CAU" alt="Compass Housing Project">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-bottom">
+                            © Copyright Compass Housing Society 2024. All rights reserved.
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const body = document.body;
+            const themeToggles = document.querySelectorAll(".theme-toggle");
+            const storedTheme = localStorage.getItem("compass-theme");
+            if (storedTheme === "dark") {
+                body.classList.add("dark-mode");
+            } else {
+                body.classList.remove("dark-mode");
+                localStorage.setItem("compass-theme", "light");
+            }
+            themeToggles.forEach(toggle => {
+                toggle.addEventListener("click", function () {
+                    const isDark = body.classList.toggle("dark-mode");
+                    localStorage.setItem("compass-theme", isDark ? "dark" : "light");
+                });
+            });
+            const menuToggle = document.querySelector(".menu-toggle");
+            const navMenu = document.querySelector(".nav-menu");
+            const dropdownToggles = document.querySelectorAll(".dropdown-toggle-custom");
+            let activeDropdown = null;
+            function closeMenu() {
+                if (navMenu) navMenu.classList.remove("nav-open");
+            }
+            function closeAllDropdowns() {
+                document.querySelectorAll(".dropdown-menu-custom").forEach(menu => {
+                    menu.classList.remove("show");
+                });
+                activeDropdown = null;
+            }
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const dropdownMenu = this.nextElementSibling;
+                    if (activeDropdown && activeDropdown !== dropdownMenu) {
+                        activeDropdown.classList.remove("show");
+                    }
+                    dropdownMenu.classList.toggle("show");
+                    if (dropdownMenu.classList.contains("show")) {
+                        activeDropdown = dropdownMenu;
+                    } else {
+                        activeDropdown = null;
+                    }
+                });
+            });
+            document.addEventListener("click", function (e) {
+                if (!e.target.closest(".dropdown")) {
+                    closeAllDropdowns();
+                }
+                if (window.innerWidth <= 1030) {
+                    if (!e.target.closest(".nav-menu") && !e.target.closest(".menu-toggle") && navMenu.classList.contains("nav-open")) {
+                        closeMenu();
+                        if (menuToggle) menuToggle.textContent = "☰";
+                    }
+                }
+            });
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener("click", function () {
+                    navMenu.classList.toggle("nav-open");
+                    this.textContent = navMenu.classList.contains("nav-open") ? "✕" : "☰";
+                    if (!navMenu.classList.contains("nav-open")) {
+                        closeAllDropdowns();
+                    }
+                });
+            }
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    if (window.innerWidth <= 1030 && navMenu.classList.contains('nav-open')) {
+                        closeMenu();
+                        if (menuToggle) menuToggle.textContent = "☰";
+                    }
+                    closeAllDropdowns();
+                }
+            });
+            const normalLinks = document.querySelectorAll(".nav-item:not(.dropdown) .nav-link-custom, .nav-item:not(.dropdown) a");
+            normalLinks.forEach(l => {
+                l.addEventListener("click", function () {
+                    if (window.innerWidth <= 1030) {
+                        closeMenu();
+                        if (menuToggle) menuToggle.textContent = "☰";
+                    }
+                    closeAllDropdowns();
+                });
+            });
+            const mobileActionLinks = document.querySelectorAll(".mobile-actions a, .mobile-actions .theme-toggle, .mobile-actions .btn-register");
+            mobileActionLinks.forEach(link => {
+                link.addEventListener("click", function () {
+                    if (window.innerWidth <= 1030 && !this.classList.contains('theme-toggle')) {
+                        closeMenu();
+                        if (menuToggle) menuToggle.textContent = "☰";
+                    }
+                    closeAllDropdowns();
+                });
+            });
+            window.addEventListener("resize", () => {
+                if (window.innerWidth > 1030) {
+                    closeMenu();
+                    if (menuToggle) menuToggle.textContent = "☰";
+                    closeAllDropdowns();
+                }
+            });
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

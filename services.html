@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en" class="light-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | Compass Housing Society</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #06B6BC;
+            --secondary: #F3F3FA;
+            --dark: #091638;
+            --transition-speed: 0.4s;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Merriweather', serif;
+            color: var(--dark);
+            background-color: var(--secondary);
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+        h1 { font-size: 46px; line-height: 1.2; }
+        h2 { font-size: 36px; line-height: 1.3; }
+        h3 { font-size: 24px; line-height: 1.4; }
+        h4, h5, h6 { font-size: 20px; line-height: 1.4; }
+        li, span, p { font-size: 18px; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding-left: 0; margin-bottom: 0; }
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("Images/transparent-logo.jpeg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 570px auto;
+            opacity: 0.10;
+            pointer-events: none;
+            z-index: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+        .dark-mode body::after {
+            opacity: 0.08;
+        }
+        .page-wrapper {
+            max-width: 1920px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            padding-top: 82px;
+            background-color: var(--secondary);
+            transition: background-color var(--transition-speed) ease;
+        }
+        .content-layer { position: relative; z-index: 1; }
+        .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: var(--primary);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+            transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+        .navbar-custom { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 24px; 
+            position: relative;
+            padding: 12px 40px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: var(--secondary);
+        }
+        .brand img { 
+            width: 58px; 
+            height: 58px; 
+            object-fit: cover; 
+            border-radius: 8px; 
+            border: 2px solid var(--secondary); 
+            opacity: 0.97; 
+            background: var(--secondary); 
+            padding: 3px;
+            transition: all var(--transition-speed) ease;
+        }
+        .nav-menu { 
+            display: flex; 
+            align-items: center; 
+            gap: 24px; 
+            flex: 1; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+        }
+        .nav-item { position: relative; }
+        .nav-link-custom {
+            color: var(--secondary);
+            padding: 4px 0;
+            opacity: 0.9;
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            transition: color 0.25s ease, opacity 0.25s ease;
+        }
+        .nav-link-custom::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0%;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.25s ease;
+        }
+        .nav-link-custom:hover::after { width: 100%; }
+        .dropdown-toggle-custom::after { content: " ▾"; position: static; width: auto; height: auto; background: none; margin-left: 4px; }
+        .dropdown-menu-custom {
+            position: absolute;
+            left: 0;
+            top: calc(100% + 6px);
+            background-color: #000000;
+            border-radius: 10px;
+            border: 1px solid rgba(243, 243, 250, 0.12);
+            min-width: 190px;
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            padding: 6px 0;
+            z-index: 120;
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .dropdown-menu-custom.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .dropdown-menu-custom li a {
+            display: block;
+            padding: 8px 18px;
+            color: var(--secondary);
+            white-space: nowrap;
+            opacity: 0.9;
+            transition: background-color 0.25s ease, opacity 0.25s ease, color 0.25s ease;
+        }
+        .dropdown-menu-custom li a:hover { background-color: rgba(6, 182, 188, 0.2); opacity: 1; color: var(--secondary); }
+        .nav-actions { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            margin-left: auto; 
+        }
+        .btn-animated { 
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease; 
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45); 
+        }
+        .btn-animated:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.7); 
+            filter: brightness(0.96); 
+        }
+        .btn-register {
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-weight: 300;
+            cursor: pointer;
+            white-space: nowrap;
+            padding-inline: 10px;
+            font-family: 'Merriweather', serif;
+            transition: all var(--transition-speed) ease;
+        }
+        .theme-toggle-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .theme-toggle {
+            position: relative;
+            width: 56px;
+            height: 26px;
+            background: rgba(243, 243, 250, 0.2);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(243, 243, 250, 0.3);
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .theme-toggle::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary);
+            border-radius: 50%;
+            top: 2px;
+            left: 3px;
+            transition: all var(--transition-speed) cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 2;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .theme-toggle::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #06B6BC 0%, #091638 100%);
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+        .dark-mode .theme-toggle {
+            background: rgba(9, 22, 56, 0.3);
+            border-color: rgba(6, 182, 188, 0.5);
+        }
+        .dark-mode .theme-toggle::before {
+            transform: translateX(30px);
+            background: #06B6BC;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        .dark-mode .theme-toggle::after {
+            opacity: 0.7;
+        }
+        .toggle-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: var(--secondary);
+            z-index: 1;
+            transition: opacity var(--transition-speed) ease;
+        }
+        .sun-icon {
+            left: 8px;
+            opacity: 0.9;
+        }
+        .moon-icon {
+            right: 8px;
+            opacity: 0.6;
+        }
+        .dark-mode .sun-icon {
+            opacity: 0.6;
+        }
+        .dark-mode .moon-icon {
+            opacity: 0.9;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(6, 182, 188, 0.4);
+        }
+        .dark-mode .theme-toggle:hover {
+            box-shadow: 0 0 15px rgba(6, 182, 188, 0.7);
+        }
+        .menu-toggle {
+            display: none;
+            border: 1px solid var(--secondary);
+            background: transparent;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+            color: var(--secondary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            transition: all var(--transition-speed) ease;
+        }
+        .nav-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 90;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .nav-overlay.active { opacity: 1; pointer-events: auto; }
+        .mobile-actions {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(243, 243, 250, 0.2);
+            margin-top: 20px;
+            width: 100%;
+        }
+        .mobile-actions .nav-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+        }
+        body.dark-mode {
+            background-color: #000000;
+            color: var(--secondary);
+        }
+        body.dark-mode .page-wrapper {
+            background-color: #000000;
+        }
+        body.dark-mode header {
+            background-color: #000000;
+        }
+        body.dark-mode .site-footer {
+            background-color: #000000;
+        }
+        body.dark-mode .nav-menu {
+            background: #000000;
+        }
+        body.dark-mode .dropdown-menu-custom {
+            background-color: #000000;
+        }
+        body.dark-mode .theme-toggle {
+            border-color: rgba(6, 182, 188, 0.7);
+        }
+        body.dark-mode .brand {
+            color: var(--secondary);
+        }
+        body.dark-mode .brand img {
+            border-color: var(--secondary);
+            background: #000000;
+        }
+        body.dark-mode .btn-register {
+            background-color: var(--secondary);
+            color: #000000;
+        }
+        .section-padding {
+            padding: 40px 0 30px;
+        }
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .submit-btn:hover {
+            background: #049ba0;
+            transform: translateY(-2px);
+        }
+        .hero-services {
+            background: linear-gradient(135deg, rgba(6, 182, 188, 0.1) 0%, rgba(9, 22, 56, 0.1) 100%);
+            border-radius: 20px;
+            margin: 20px 0 40px;
+            padding: 60px 0;
+        }
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        .dark-mode .hero-title {
+            color: var(--secondary);
+        }
+        .hero-description {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: #555;
+        }
+        .dark-mode .hero-description {
+            color: #ccc;
+        }
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            height: 100%;
+        }
+        .dark-mode .service-card {
+            background: #222;
+            color: var(--secondary);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .service-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .service-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+        .dark-mode .service-title {
+            color: var(--secondary);
+        }
+        .process-section {
+            background: #f8f9fa;
+        }
+        .dark-mode .process-section {
+            background: #111;
+        }
+        .process-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            height: 100%;
+            text-align: center;
+            position: relative;
+        }
+        .dark-mode .process-card {
+            background: #222;
+            color: var(--secondary);
+        }
+        .process-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        .process-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+            margin-top: 10px;
+        }
+        .dark-mode .process-title {
+            color: var(--secondary);
+        }
+        .package-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 2px solid transparent;
+        }
+        .dark-mode .package-card {
+            background: #222;
+        }
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-color: var(--primary);
+        }
+        .package-header {
+            background: var(--primary);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .package-price {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        .package-period {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .package-content {
+            padding: 30px;
+        }
+        .package-feature {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .package-feature i {
+            color: var(--primary);
+        }
+        .featured-section {
+            background: linear-gradient(135deg, rgba(6, 182, 188, 0.1) 0%, rgba(9, 22, 56, 0.1) 100%);
+        }
+        .dark-mode .featured-section {
+            background: linear-gradient(135deg, rgba(6, 182, 188, 0.05) 0%, rgba(9, 22, 56, 0.05) 100%);
+        }
+        .feature-item {
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        .dark-mode .feature-item {
+            background: #222;
+            color: var(--secondary);
+        }
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .feature-icon {
+            font-size: 42px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .contact-box {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .dark-mode .contact-box {
+            background: #222;
+            color: var(--secondary);
+        }
+        .contact-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .site-footer {
+            background: var(--primary);
+            color: var(--secondary);
+            font-size: 14px;
+            width: 100%;
+            padding-top: 20px;
+            transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+        .footer-inner {
+            padding: 25px 0 15px;
+        }
+        .footer-brand-title {
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--secondary);
+        }
+        .footer-text { 
+            color: var(--secondary); 
+            margin-bottom: 10px; 
+            max-width: 260px; 
+        }
+        .footer-label { font-weight: 700; }
+        .footer-contact-line { 
+            margin-bottom: 4px; 
+        }
+        .footer-socials { 
+            display: flex; 
+            gap: 10px; 
+            margin-top: 12px; 
+        }
+        .footer-social { 
+            width: 28px; 
+            height: 28px; 
+            border-radius: 50%; 
+            border: 1px solid var(--secondary); 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease; 
+            color: var(--secondary);
+        }
+        .footer-social:hover { 
+            transform: translateY(-3px); 
+            background-color: var(--secondary); 
+            color: var(--primary); 
+        }
+        .footer-column-title { 
+            font-weight: 800; 
+            margin-bottom: 10px; 
+            color: var(--secondary); 
+        }
+        .footer-links li { 
+            margin-bottom: 4px; 
+            color: var(--secondary); 
+            transition: color 0.25s ease;
+        }
+        .footer-links li a { color: inherit; }
+        .footer-links li a:hover { color: var(--secondary); opacity: 0.8; }
+        .footer-single-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        .footer-single-image img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .footer-single-image img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+        }
+        .footer-bottom { 
+            margin-top: 20px; 
+            text-align: center; 
+            color: var(--secondary); 
+            font-size: 18px; 
+            width: 100%;
+        }
+        @media (max-width: 1030px) {
+            .navbar-custom { 
+                padding: 10px 16px;
+                gap: 10px; 
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+            .brand {
+                order: 1;
+                flex: 1;
+            }
+            .nav-actions.desktop-actions {
+                display: none;
+            }
+            .menu-toggle {
+                display: inline-flex;
+                order: 3;
+                margin-left: 10px;
+                position: relative;
+                z-index: 120;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -280px;
+                width: 280px;
+                height: auto;
+                max-height: 90vh;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                background: #000000;
+                padding: 20px;
+                border-radius: 0 0 0 16px;
+                box-shadow: -12px 0 30px rgba(0, 0, 0, 0.85);
+                z-index: 110;
+                gap: 12px;
+                transition: right 0.3s ease;
+                border: 1px solid rgba(243, 243, 250, 0.6);
+                overflow-y: auto;
+                margin-top: 0;
+            }
+            body.dark-mode .nav-menu {
+                background: #000000;
+            }
+            .nav-menu.nav-open { right: 0; }
+            .nav-item { width: 100%; }
+            .nav-link-custom { width: 100%; padding: 10px 0; }
+            .dropdown-menu-custom { 
+                position: static; 
+                margin-top: 4px; 
+                background: transparent; 
+                border-radius: 0; 
+                border: none; 
+                box-shadow: none; 
+                padding: 0 0 4px 10px; 
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                pointer-events: auto;
+            }
+            .dropdown-menu-custom.show {
+                display: block;
+            }
+            .dropdown-menu-custom li a { padding: 8px 0; font-size: 15px; opacity: 0.85; }
+            .mobile-actions {
+                display: flex;
+            }
+            .menu-toggle {
+                margin-left: auto;
+                position: relative;
+                z-index: 120;
+            }
+            .nav-overlay {
+                display: none;
+            }
+            .theme-toggle-wrapper {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .hero-title {
+                font-size: 36px;
+            }
+            .section-padding {
+                padding: 30px 0 20px;
+            }
+            .contact-box {
+                padding: 30px;
+            }
+        }
+        @media (max-width: 768px) {
+            .page-wrapper { padding-top: 70px; }
+            .hero-title {
+                font-size: 32px;
+            }
+            .package-price {
+                font-size: 32px;
+            }
+            .section-padding {
+                padding: 25px 0 15px;
+            }
+        }
+        @media (max-width: 576px) {
+            .page-wrapper { padding-top: 60px; }
+            .brand span { font-size: 14px; }
+            .brand img { width: 40px; height: 40px; }
+            .nav-menu {
+                width: 250px;
+                max-height: 85vh;
+                top: 60px;
+                right: -250px;
+            }
+            .mobile-actions { padding: 15px 0; }
+            .mobile-actions .nav-actions { flex-direction: column; gap: 10px; }
+            .menu-toggle { margin-left: 10px; }
+            .theme-toggle { width: 50px; height: 24px; }
+            .theme-toggle::before { width: 18px; height: 18px; }
+            .dark-mode .theme-toggle::before { transform: translateX(26px); }
+            .hero-title {
+                font-size: 28px;
+            }
+            .package-header {
+                padding: 20px;
+            }
+            .package-content {
+                padding: 20px;
+            }
+            .contact-box {
+                padding: 20px;
+            }
+            .section-padding {
+                padding: 20px 0 10px;
+            }
+        }
+        @media (max-width: 400px) {
+            .nav-menu { width: 220px; right: -220px; }
+        }
+        @media (max-width: 350px) {
+            .brand span { display: none; }
+            .brand { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="content-layer">
+            <div class="nav-overlay"></div>
+            <header>
+                <nav class="navbar-custom">
+                    <div class="brand">
+                        <img src="Images/logo.jpeg" alt="Compass Housing Society Logo">
+                        <span>Housing Compass<br> Society</span>
+                    </div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link-custom">Home1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="home2.html" class="nav-link-custom">Home2</a>
+                        </li>
+                        <li><a href="aboutus.html" class="nav-link-custom">About Us</a></li>
+                        <li class="nav-item dropdown">
+                            <span class="nav-link-custom dropdown-toggle-custom">Services</span>
+                            <ul class="dropdown-menu-custom">
+                                <li><a href="services.html">Services Page</a></li>
+                                <li><a href="servicedetails.html">Services Details Page</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <span class="nav-link-custom dropdown-toggle-custom">Blog</span>
+                            <ul class="dropdown-menu-custom">
+                                <li><a href="blog.html">Blog Page</a></li>
+                                <li><a href="blogdetails.html">Blog Details Page</a></li>
+                                <li><a href="additionalpage.html">Additional Pages</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contactus.html" class="nav-link-custom">Contact Us</a>
+                        </li>
+                        <div class="mobile-actions">
+                            <div class="nav-actions">
+                                <div class="theme-toggle-wrapper">
+                                    <div class="theme-toggle" aria-label="Toggle dark / light mode">
+                                        <span class="toggle-icon sun-icon">☀️</span>
+                                        <span class="toggle-icon moon-icon">🌙</span>
+                                    </div>
+                                </div>
+                                <a href="login.html">
+                                    <button class="btn-register btn-animated" type="button">Login</button>
+                                </a>
+                            </div>
+                        </div>
+                    </ul>
+                    <div class="nav-actions desktop-actions">
+                        <div class="theme-toggle-wrapper">
+                            <div class="theme-toggle" aria-label="Toggle dark / light mode">
+                                <span class="toggle-icon sun-icon">☀️</span>
+                                <span class="toggle-icon moon-icon">🌙</span>
+                            </div>
+                        </div>
+                        <a href="login.html">
+                            <button class="btn-register btn-animated" type="button">Login</button>
+                        </a>
+                    </div>
+                    <button class="menu-toggle" type="button" aria-label="Toggle menu">☰</button>
+                </nav>
+            </header>
+
+            <section class="hero-services section-padding">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-12">
+                            <h1 class="hero-title">Our Premium Services</h1>
+                            <p class="hero-description">
+                                At Compass Housing Society, we offer a comprehensive range of real estate services designed to meet all your property needs. From buying your dream home to managing your investment properties, we've got you covered.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-padding">
+                <div class="container">
+                    <div class="row text-center mb-4">
+                        <div class="col-12">
+                            <h2 class="mb-3">Our Core Services</h2>
+                            <p class="lead">Comprehensive solutions for all your real estate needs</p>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <h3 class="service-title">Property Sales</h3>
+                                <p>Find your perfect home from our premium collection of residential properties. We offer personalized assistance throughout the buying process.</p>
+                                <button class="submit-btn" style="margin-top: 15px;"><a href="servicedetails.html">Learn More</a></button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-key"></i>
+                                </div>
+                                <h3 class="service-title">Property Management</h3>
+                                <p>Comprehensive property management services including maintenance, tenant screening, rent collection, and regular inspections.</p>
+                                <button class="submit-btn" style="margin-top: 15px;"><a href="servicedetails.html">Learn More</a></button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h3 class="service-title">Property Valuation</h3>
+                                <p>Accurate property valuation services for buying, selling, or investment purposes. Get expert insights into market trends and pricing.</p>
+                                <button class="submit-btn" style="margin-top: 15px;"><a href="servicedetails.html">Learn More</a></button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-hands-helping"></i>
+                                </div>
+                                <h3 class="service-title">Legal Assistance</h3>
+                                <p>Expert legal guidance for property registration, documentation, and compliance with all real estate regulation.</p>
+                                <button class="submit-btn" style="margin-top: 15px;"><a href="servicedetails.html">Learn More</a></button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <h3 class="service-title">Renovation Services</h3>
+                                <p>Professional home renovation and remodeling services to transform your space according to your vision and requirements.</p>
+                                <button class="submit-btn" style="margin-top: 15px;"><a href="servicedetails.html">Learn More</a></button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <h3 class="service-title">Consultation Services</h3>
+                                <p>Personalized real estate consultation to help you make informed decisions about buying, selling, or investing in properties.</p>
+                                <button class="submit-btn" style="margin-top: 15px;"><a href="servicedetails.html">Learn More</a></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="process-section section-padding">
+                <div class="container">
+                    <div class="row text-center mb-4">
+                        <div class="col-12">
+                            <h2 class="mb-3">Our Service Process</h2>
+                            <p class="lead">Simple, transparent, and efficient service delivery</p>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-3">
+                            <div class="process-card">
+                                <div class="process-number">1</div>
+                                <h3 class="process-title">Initial Consultation</h3>
+                                <p>Understand your requirements and preferences through detailed discussion</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="process-card">
+                                <div class="process-number">2</div>
+                                <h3 class="process-title">Property Search</h3>
+                                <p>Curated selection of properties matching your criteria and budget</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="process-card">
+                                <div class="process-number">3</div>
+                                <h3 class="process-title">Site Visits</h3>
+                                <p>Organized property visits with expert guidance and insights</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="process-card">
+                                <div class="process-number">4</div>
+                                <h3 class="process-title">Finalization</h3>
+                                <p>Assistance with documentation, negotiation, and closing the deal</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-padding">
+                <div class="container">
+                    <div class="row text-center mb-4">
+                        <div class="col-12">
+                            <h2 class="mb-3">Service Packages</h2>
+                            <p class="lead">Choose the package that best fits your needs</p>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="package-card">
+                                <div class="package-header">
+                                    <h3>Basic Package</h3>
+                                    <div class="package-price">₹49,999</div>
+                                    <div class="package-period">One-time fee</div>
+                                </div>
+                                <div class="package-content">
+                                    <div class="package-feature"><i class="fas fa-check"></i> Property Search Assistance</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> 5 Property Visits</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> Basic Documentation Support</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> Market Analysis Report</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> 30 Days Post-Sale Support</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> Home Loan Assistance</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="package-card" style="border-color: var(--primary);">
+                                <div class="package-header" style="background: var(--primary);">
+                                    <h3>Premium Package</h3>
+                                    <div class="package-price">₹99,999</div>
+                                    <div class="package-period">Most Popular</div>
+                                </div>
+                                <div class="package-content">
+                                    <div class="package-feature"><i class="fas fa-check"></i> Everything in Basic</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> Unlimited Property Visits</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> Full Legal Assistance</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> Negotiation Support</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> 90 Days Post-Sale Support</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> Home Loan Assistance</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="package-card">
+                                <div class="package-header">
+                                    <h3>Elite Package</h3>
+                                    <div class="package-price">₹1,99,999</div>
+                                    <div class="package-period">Complete Solution</div>
+                                </div>
+                                <div class="package-content">
+                                    <div class="package-feature"><i class="fas fa-check"></i> Everything in Premium</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> Interior Design Consultation</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> Property Management (6 Months)</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> Priority Customer Support</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> 1 Year Warranty on Services</div>
+                                    <div class="package-feature"><i class="fas fa-check"></i> Investment Advisory</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="featured-section section-padding">
+                <div class="container">
+                    <div class="row text-center mb-4">
+                        <div class="col-12">
+                            <h2 class="mb-3">Why Choose Our Services</h2>
+                            <p class="lead">Experience the Compass Housing difference</p>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <h4>Expert Team</h4>
+                                <p>Our team consists of experienced real estate professionals with deep market knowledge</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h4>Transparent Process</h4>
+                                <p>Clear communication and honest dealings at every step of the process</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-headset"></i>
+                                </div>
+                                <h4>24/7 Support</h4>
+                                <p>Round-the-clock customer support for all your queries and concerns</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-award"></i>
+                                </div>
+                                <h4>Quality Assurance</h4>
+                                <p>We maintain the highest standards of service quality and customer satisfaction</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <h4>Trusted Partnerships</h4>
+                                <p>Strong relationships with banks, legal firms, and construction companies</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <h4>Market Insights</h4>
+                                <p>Regular market analysis and trend reports to help you make informed decisions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="contact-box">
+                                <div class="contact-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <h2>Ready to Get Started?</h2>
+                                <p>Book a free consultation with our real estate experts today. Let us help you find your dream property or manage your real estate investments effectively.</p>
+                                <button class="submit-btn" style="margin-top: 20px;"><a href="contactus.html">Schedule Free Consultation</a></button>
+                                <p style="margin-top: 15px; font-size: 16px; color: #666;">
+                                    <i class="fas fa-phone" style="margin-right: 8px;"></i> Call us: +91-98765-43210
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="site-footer" id="contact">
+                <div class="container">
+                    <div class="footer-inner">
+                        <div class="row footer-grid g-4">
+                            <div class="col-md-4">
+                                <div class="footer-brand-title">
+                                    <h4 class="footer-column-title">Compass Housing Society</h4>
+                                </div>
+                                <p class="footer-text">
+                                    Leading real estate developer creating sustainable, modern living spaces.</p>
+                                <p class="footer-contact-line">
+                                    <span class="footer-label">Phone:</span> +91-98765-43210
+                                </p>
+                                <p class="footer-contact-line">
+                                    <span class="footer-label">Email:</span> info@compasshousing.com
+                                </p>
+                                <div class="footer-socials">
+                                    <a href="http://www.facebook.com" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="http://www.twitter.com" class="footer-social"><i class="fab fa-twitter"></i></a>
+                                    <a href="http://www.instagram.com" class="footer-social"><i class="fab fa-instagram"></i></a>
+                                    <a href="http://www.youtube.com" class="footer-social"><i class="fab fa-youtube"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-6">
+                                <h4 class="footer-column-title">Quick Links</h4>
+                                <ul class="footer-links">
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="aboutus.html">About us</a></li>
+                                    <li><a href="services.html">Services</a></li>
+                                    <li><a href="blog.html">Blog</a></li>
+                                    <li><a href="contactus.html">Contact us</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-2 col-sm-6">
+                                <h4 class="footer-column-title">Properties</h4>
+                                <ul class="footer-links">
+                                    <li><a href="#">Luxury Apartments</a></li>
+                                    <li><a href="#">Gated Communities</a></li>
+                                    <li><a href="#">Commercial Spaces</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="footer-single-image">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNG5nNLSmMON82KTP72Ri6WREo9apamINs9JE9M4cERa_V_UdDfu2ZOubVQVVLbPFxLEM&usqp=CAU" alt="Compass Housing Project">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-bottom">
+                            © Copyright Compass Housing Society 2024. All rights reserved.
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const body = document.body;
+            const themeToggles = document.querySelectorAll(".theme-toggle");
+            const storedTheme = localStorage.getItem("compass-theme");
+            if (storedTheme === "dark") {
+                body.classList.add("dark-mode");
+            } else {
+                body.classList.remove("dark-mode");
+                localStorage.setItem("compass-theme", "light");
+            }
+            themeToggles.forEach(toggle => {
+                toggle.addEventListener("click", function () {
+                    const isDark = body.classList.toggle("dark-mode");
+                    toggle.style.transform = "scale(0.95)";
+                    setTimeout(() => {
+                        toggle.style.transform = "scale(1)";
+                    }, 150);
+                    localStorage.setItem("compass-theme", isDark ? "dark" : "light");
+                });
+            });
+            const menuToggle = document.querySelector(".menu-toggle");
+            const navMenu = document.querySelector(".nav-menu");
+            const dropdownToggles = document.querySelectorAll(".dropdown-toggle-custom");
+            let activeDropdown = null;
+            function closeMenu() {
+                if (navMenu) navMenu.classList.remove("nav-open");
+            }
+            function closeAllDropdowns() {
+                document.querySelectorAll(".dropdown-menu-custom").forEach(menu => {
+                    menu.classList.remove("show");
+                });
+                activeDropdown = null;
+            }
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const dropdownMenu = this.nextElementSibling;
+                    if (activeDropdown && activeDropdown !== dropdownMenu) {
+                        activeDropdown.classList.remove("show");
+                    }
+                    dropdownMenu.classList.toggle("show");
+                    if (dropdownMenu.classList.contains("show")) {
+                        activeDropdown = dropdownMenu;
+                    } else {
+                        activeDropdown = null;
+                    }
+                });
+            });
+            document.addEventListener("click", function (e) {
+                if (!e.target.closest(".dropdown")) {
+                    closeAllDropdowns();
+                }
+                if (window.innerWidth <= 1030) {
+                    if (!e.target.closest(".nav-menu") && !e.target.closest(".menu-toggle") && navMenu.classList.contains("nav-open")) {
+                        closeMenu();
+                        if (menuToggle) menuToggle.textContent = "☰";
+                    }
+                }
+            });
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener("click", function () {
+                    navMenu.classList.toggle("nav-open");
+                    this.textContent = navMenu.classList.contains("nav-open") ? "✕" : "☰";
+                    if (!navMenu.classList.contains("nav-open")) {
+                        closeAllDropdowns();
+                    }
+                });
+            }
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    if (window.innerWidth <= 1030 && navMenu.classList.contains('nav-open')) {
+                        closeMenu();
+                        if (menuToggle) menuToggle.textContent = "☰";
+                    }
+                    closeAllDropdowns();
+                }
+            });
+            const normalLinks = document.querySelectorAll(".nav-item:not(.dropdown) .nav-link-custom, .nav-item:not(.dropdown) a");
+            normalLinks.forEach(l => {
+                l.addEventListener("click", function () {
+                    if (window.innerWidth <= 1030) {
+                        closeMenu();
+                        if (menuToggle) menuToggle.textContent = "☰";
+                    }
+                    closeAllDropdowns();
+                });
+            });
+            const mobileActionLinks = document.querySelectorAll(".mobile-actions a, .mobile-actions .theme-toggle, .mobile-actions .btn-register");
+            mobileActionLinks.forEach(link => {
+                link.addEventListener("click", function () {
+                    if (window.innerWidth <= 1030 && !this.classList.contains('theme-toggle')) {
+                        closeMenu();
+                        if (menuToggle) menuToggle.textContent = "☰";
+                    }
+                    closeAllDropdowns();
+                });
+            });
+            window.addEventListener("resize", () => {
+                if (window.innerWidth > 1030) {
+                    closeMenu();
+                    if (menuToggle) menuToggle.textContent = "☰";
+                    closeAllDropdowns();
+                }
+            });
+            body.addEventListener('transitionend', function(e) {
+                if (e.propertyName.includes('background-color') || e.propertyName.includes('color')) {
+                }
+            });
+        });
+    </script>
+</body>
+</html>
