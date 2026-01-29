@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en" class="light-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Management Services | Compass Housing Society</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #06B6BC;
+            --secondary: #F3F3FA;
+            --dark: #091638;
+            --transition-speed: 0.4s;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Merriweather', serif;
+            color: var(--dark);
+            background-color: var(--secondary);
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+        h1 { font-size: 46px; line-height: 1.2; }
+        h2 { font-size: 36px; line-height: 1.3; }
+        h3 { font-size: 24px; line-height: 1.4; }
+        h4, h5, h6 { font-size: 20px; line-height: 1.4; }
+        li, span, p { font-size: 18px; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding-left: 0; margin-bottom: 0; }
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("Images/transparent-logo.jpeg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 570px auto;
+            opacity: 0.10;
+            pointer-events: none;
+            z-index: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+        .dark-mode body::after {
+            opacity: 0.08;
+        }
+        .page-wrapper {
+            max-width: 1920px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            padding-top: 82px;
+            background-color: var(--secondary);
+            transition: background-color var(--transition-speed) ease;
+        }
+        .content-layer { position: relative; z-index: 1; }
+        .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: var(--primary);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+            transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+        .navbar-custom { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 24px; 
+            position: relative;
+            padding: 12px 40px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: var(--secondary);
+        }
+        .brand img { 
+            width: 58px; 
+            height: 58px; 
+            object-fit: cover; 
+            border-radius: 8px; 
+            border: 2px solid var(--secondary); 
+            opacity: 0.97; 
+            background: var(--secondary); 
+            padding: 3px;
+            transition: all var(--transition-speed) ease;
+        }
+        .nav-menu { 
+            display: flex; 
+            align-items: center; 
+            gap: 24px; 
+            flex: 1; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+        }
+        .nav-item { position: relative; }
+        .nav-link-custom {
+            color: var(--secondary);
+            padding: 4px 0;
+            opacity: 0.9;
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            transition: color 0.25s ease, opacity 0.25s ease;
+        }
+        .nav-link-custom::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0%;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.25s ease;
+        }
+        .nav-link-custom:hover::after { width: 100%; }
+        .dropdown-toggle-custom::after { content: " ▾"; position: static; width: auto; height: auto; background: none; margin-left: 4px; }
+        .dropdown-menu-custom {
+            position: absolute;
+            left: 0;
+            top: calc(100% + 6px);
+            background-color: #000000;
+            border-radius: 10px;
+            border: 1px solid rgba(243, 243, 250, 0.12);
+            min-width: 190px;
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            padding: 6px 0;
+            z-index: 120;
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .dropdown-menu-custom.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .dropdown-menu-custom li a {
+            display: block;
+            padding: 8px 18px;
+            color: var(--secondary);
+            white-space: nowrap;
+            opacity: 0.9;
+            transition: background-color 0.25s ease, opacity 0.25s ease, color 0.25s ease;
+        }
+        .dropdown-menu-custom li a:hover { background-color: rgba(6, 182, 188, 0.2); opacity: 1; color: var(--secondary); }
+        .nav-actions { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            margin-left: auto; 
+        }
+        .btn-animated { 
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease; 
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45); 
+        }
+        .btn-animated:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.7); 
+            filter: brightness(0.96); 
+        }
+        .btn-register {
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-weight: 300;
+            cursor: pointer;
+            white-space: nowrap;
+            padding-inline: 10px;
+            font-family: 'Merriweather', serif;
+            transition: all var(--transition-speed) ease;
+        }
+        .theme-toggle-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .theme-toggle {
+            position: relative;
+            width: 56px;
+            height: 26px;
+            background: rgba(243, 243, 250, 0.2);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(243, 243, 250, 0.3);
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .theme-toggle::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary);
+            border-radius: 50%;
+            top: 2px;
+            left: 3px;
+            transition: all var(--transition-speed) cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 2;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .theme-toggle::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #06B6BC 0%, #091638 100%);
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+        .dark-mode .theme-toggle {
+            background: rgba(9, 22, 56, 0.3);
+            border-color: rgba(6, 182, 188, 0.5);
+        }
+        .dark-mode .theme-toggle::before {
+            transform: translateX(30px);
+            background: #06B6BC;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        .dark-mode .theme-toggle::after {
+            opacity: 0.7;
+        }
+        .toggle-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: var(--secondary);
+            z-index: 1;
+            transition: opacity var(--transition-speed) ease;
+        }
+        .sun-icon {
+            left: 8px;
+            opacity: 0.9;
+        }
+        .moon-icon {
+            right: 8px;
+            opacity: 0.6;
+        }
+        .dark-mode .sun-icon {
+            opacity: 0.6;
+        }
+        .dark-mode .moon-icon {
+            opacity: 0.9;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(6, 182, 188, 0.4);
+        }
+        .dark-mode .theme-toggle:hover {
+            box-shadow: 0 0 15px rgba(6, 182, 188, 0.7);
+        }
+        .menu-toggle {
+            display: none;
+            border: 1px solid var(--secondary);
+            background: transparent;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+            color: var(--secondary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            transition: all var(--transition-speed) ease;
+        }
+        .nav-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 90;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .nav-overlay.active { opacity: 1; pointer-events: auto; }
+        .mobile-actions {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(243, 243, 250, 0.2);
+            margin-top: 20px;
+            width: 100%;
+        }
+        .mobile-actions .nav-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+        }
+        body.dark-mode {
+            background-color: #000000;
+            color: var(--secondary);
+        }
+        body.dark-mode .page-wrapper {
+            background-color: #000000;
+        }
+        body.dark-mode header {
+            background-color: #000000;
+        }
+        body.dark-mode .site-footer {
+            background-color: #000000;
+        }
+        body.dark-mode .nav-menu {
+            background: #000000;
+        }
+        body.dark-mode .dropdown-menu-custom {
+            background-color: #000000;
+        }
+        body.dark-mode .theme-toggle {
+            border-color: rgba(6, 182, 188, 0.7);
+        }
+        body.dark-mode .brand {
+            color: var(--secondary);
+        }
+        body.dark-mode .brand img {
+            border-color: var(--secondary);
+            background: #000000;
+        }
+        body.dark-mode .btn-register {
+            background-color: var(--secondary);
+            color: #000000;
+        }
+        .section-padding {
+            padding: 40px 0 30px;
+        }
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .submit-btn:hover {
+            background: #049ba0;
+            transform: translateY(-2px);
+        }
+        .service-hero {
+            background: linear-gradient(135deg, rgba(6, 182, 188, 0.1) 0%, rgba(9, 22, 56, 0.1) 100%);
+            border-radius: 20px;
+            margin: 20px 0 40px;
+            padding: 60px 0;
+        }
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        .dark-mode .hero-title {
+            color: var(--secondary);
+        }
+        .hero-description {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: #555;
+        }
+        .dark-mode .hero-description {
+            color: #ccc;
+        }
+        .service-icon-large {
+            font-size: 60px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .overview-section {
+            background: #f8f9fa;
+        }
+        .dark-mode .overview-section {
+            background: #111;
+        }
+        .service-detail-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        .dark-mode .service-detail-card {
+            background: #222;
+            color: var(--secondary);
+        }
+        .service-detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .detail-icon {
+            font-size: 42px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .detail-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+        .dark-mode .detail-title {
+            color: var(--secondary);
+        }
+        .feature-list {
+            margin: 20px 0;
+        }
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+        }
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .process-step {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            height: 100%;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .dark-mode .process-step {
+            background: #222;
+            color: var(--secondary);
+        }
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            margin: 0 auto 15px;
+        }
+        .benefits-section {
+            background: linear-gradient(135deg, rgba(6, 182, 188, 0.05) 0%, rgba(9, 22, 56, 0.05) 100%);
+        }
+        .dark-mode .benefits-section {
+            background: linear-gradient(135deg, rgba(6, 182, 188, 0.02) 0%, rgba(9, 22, 56, 0.02) 100%);
+        }
+        .benefit-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        .dark-mode .benefit-card {
+            background: #222;
+            color: var(--secondary);
+        }
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .benefit-icon {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .pricing-section {
+            background: #f8f9fa;
+        }
+        .dark-mode .pricing-section {
+            background: #111;
+        }
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 2px solid transparent;
+        }
+        .dark-mode .pricing-card {
+            background: #222;
+        }
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .pricing-header {
+            background: var(--primary);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .pricing-price {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        .pricing-period {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .pricing-content {
+            padding: 30px;
+        }
+        .pricing-feature {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .pricing-feature i {
+            color: var(--primary);
+        }
+        .faq-section {
+            background: linear-gradient(135deg, rgba(6, 182, 188, 0.05) 0%, rgba(9, 22, 56, 0.05) 100%);
+        }
+        .dark-mode .faq-section {
+            background: linear-gradient(135deg, rgba(6, 182, 188, 0.02) 0%, rgba(9, 22, 56, 0.02) 100%);
+        }
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        .dark-mode .faq-item {
+            background: #222;
+            color: var(--secondary);
+        }
+        .faq-item:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .faq-question {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dark-mode .faq-question {
+            color: var(--secondary);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-answer.open {
+            max-height: 500px;
+        }
+        .faq-toggle {
+            font-size: 20px;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+        .faq-toggle.open {
+            transform: rotate(180deg);
+        }
+        .contact-cta {
+            background: linear-gradient(135deg, var(--primary) 0%, #091638 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+        }
+        .site-footer {
+            background: var(--primary);
+            color: var(--secondary);
+            font-size: 14px;
+            width: 100%;
+            padding-top: 20px;
+            transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+        .footer-inner {
+            padding: 25px 0 15px;
+        }
+        .footer-brand-title {
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--secondary);
+        }
+        .footer-text { 
+            color: var(--secondary); 
+            margin-bottom: 10px; 
+            max-width: 260px; 
+        }
+        .footer-label { font-weight: 700; }
+        .footer-contact-line { 
+            margin-bottom: 4px; 
+        }
+        .footer-socials { 
+            display: flex; 
+            gap: 10px; 
+            margin-top: 12px; 
+        }
+        .footer-social { 
+            width: 28px; 
+            height: 28px; 
+            border-radius: 50%; 
+            border: 1px solid var(--secondary); 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease; 
+            color: var(--secondary);
+        }
+        .footer-social:hover { 
+            transform: translateY(-3px); 
+            background-color: var(--secondary); 
+            color: var(--primary); 
+        }
+        .footer-column-title { 
+            font-weight: 800; 
+            margin-bottom: 10px; 
+            color: var(--secondary); 
+        }
+        .footer-links li { 
+            margin-bottom: 4px; 
+            color: var(--secondary); 
+            transition: color 0.25s ease;
+        }
+        .footer-links li a { color: inherit; }
+        .footer-links li a:hover { color: var(--secondary); opacity: 0.8; }
+        .footer-single-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        .footer-single-image img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .footer-single-image img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+        }
+        .footer-bottom { 
+            margin-top: 20px; 
+            text-align: center; 
+            color: var(--secondary); 
+            font-size: 18px; 
+            width: 100%;
+        }
+        @media (max-width: 1030px) {
+            .navbar-custom { 
+                padding: 10px 16px;
+                gap: 10px; 
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+            .brand {
+                order: 1;
+                flex: 1;
+            }
+            .nav-actions.desktop-actions {
+                display: none;
+            }
+            .menu-toggle {
+                display: inline-flex;
+                order: 3;
+                margin-left: 10px;
+                position: relative;
+                z-index: 120;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -280px;
+                width: 280px;
+                height: auto;
+                max-height: 90vh;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                background: #000000;
+                padding: 20px;
+                border-radius: 0 0 0 16px;
+                box-shadow: -12px 0 30px rgba(0, 0, 0, 0.85);
+                z-index: 110;
+                gap: 12px;
+                transition: right 0.3s ease;
+                border: 1px solid rgba(243, 243, 250, 0.6);
+                overflow-y: auto;
+                margin-top: 0;
+            }
+            body.dark-mode .nav-menu {
+                background: #000000;
+            }
+            .nav-menu.nav-open { right: 0; }
+            .nav-item { width: 100%; }
+            .nav-link-custom { width: 100%; padding: 10px 0; }
+            .dropdown-menu-custom { 
+                position: static; 
+                margin-top: 4px; 
+                background: transparent; 
+                border-radius: 0; 
+                border: none; 
+                box-shadow: none; 
+                padding: 0 0 4px 10px; 
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                pointer-events: auto;
+            }
+            .dropdown-menu-custom.show {
+                display: block;
+            }
+            .dropdown-menu-custom li a { padding: 8px 0; font-size: 15px; opacity: 0.85; }
+            .mobile-actions {
+                display: flex;
+            }
+            .menu-toggle {
+                margin-left: auto;
+                position: relative;
+                z-index: 120;
+            }
+            .nav-overlay {
+                display: none;
+            }
+            .theme-toggle-wrapper {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .hero-title {
+                font-size: 36px;
+            }
+            .service-hero {
+                padding: 40px 0;
+            }
+            .section-padding {
+                padding: 30px 0 20px;
+            }
+            .contact-cta {
+                padding: 30px;
+            }
+        }
+        @media (max-width: 768px) {
+            .page-wrapper { padding-top: 70px; }
+            .hero-title {
+                font-size: 32px;
+            }
+            .service-icon-large {
+                font-size: 48px;
+            }
+            .pricing-price {
+                font-size: 32px;
+            }
+            .section-padding {
+                padding: 25px 0 15px;
+            }
+        }
+        @media (max-width: 576px) {
+            .page-wrapper { padding-top: 60px; }
+            .brand span { font-size: 14px; }
+            .brand img { width: 40px; height: 40px; }
+            .nav-menu {
+                width: 250px;
+                max-height: 85vh;
+                top: 60px;
+                right: -250px;
+            }
+            .mobile-actions { padding: 15px 0; }
+            .mobile-actions .nav-actions { flex-direction: column; gap: 10px; }
+            .menu-toggle { margin-left: 10px; }
+            .theme-toggle { width: 50px; height: 24px; }
+            .theme-toggle::before { width: 18px; height: 18px; }
+            .dark-mode .theme-toggle::before { transform: translateX(26px); }
+            .hero-title {
+                font-size: 28px;
+            }
+            .service-hero {
+                padding: 30px 0;
+            }
+            .pricing-header {
+                padding: 20px;
+            }
+            .pricing-content {
+                padding: 20px;
+            }
+            .contact-cta {
+                padding: 20px;
+            }
+            .section-padding {
+                padding: 20px 0 10px;
+            }
+        }
+        @media (max-width: 400px) {
+            .nav-menu { width: 220px; right: -220px; }
+        }
+        @media (max-width: 350px) {
+            .brand span { display: none; }
+            .brand { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="content-layer">
+            <div class="nav-overlay"></div>
+            <header>
+                <nav class="navbar-custom">
+                    <div class="brand">
+                        <img src="Images/logo.jpeg" alt="Compass Housing Society Logo">
+                        <span>Housing Compass<br> Society</span>
+                    </div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link-custom">Home1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="home2.html" class="nav-link-custom">Home2</a>
+                        </li>
+                        <li><a href="aboutus.html" class="nav-link-custom">AboutUs</a></li>
+                        <li class="nav-item dropdown">
+                            <span class="nav-link-custom dropdown-toggle-custom">Services</span>
+                            <ul class="dropdown-menu-custom">
+                                <li><a href="services.html">Services Page</a></li>
+                                <li><a href="servicedetails.html">Services Details Page</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <span class="nav-link-custom dropdown-toggle-custom">Blog</span>
+                            <ul class="dropdown-menu-custom">
+                                <li><a href="blog.html">Blog Page</a></li>
+                                <li><a href="blogdetails.html">Blog Details Page</a></li>
+                                <li><a href="additionalpage.html">Additional Pages</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contactus.html" class="nav-link-custom">Contact Us</a>
+                        </li>
+                        <div class="mobile-actions">
+                            <div class="nav-actions">
+                                <div class="theme-toggle-wrapper">
+                                    <div class="theme-toggle" aria-label="Toggle dark / light mode">
+                                        <span class="toggle-icon sun-icon">☀️</span>
+                                        <span class="toggle-icon moon-icon">🌙</span>
+                                    </div>
+                                </div>
+                                <a href="login.html">
+                                    <button class="btn-register btn-animated" type="button">Login</button>
+                                </a>
+                            </div>
+                        </div>
+                    </ul>
+                    <div class="nav-actions desktop-actions">
+                        <div class="theme-toggle-wrapper">
+                            <div class="theme-toggle" aria-label="Toggle dark / light mode">
+                                <span class="toggle-icon sun-icon">☀️</span>
+                                <span class="toggle-icon moon-icon">🌙</span>
+                            </div>
+                        </div>
+                        <a href="login.html">
+                            <button class="btn-register btn-animated" type="button">Login</button>
+                        </a>
+                    </div>
+                    <button class="menu-toggle" type="button" aria-label="Toggle menu">☰</button>
+                </nav>
+            </header>
+
+            <section class="service-hero section-padding">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <div class="service-icon-large">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <h1 class="hero-title">Property Management Services</h1>
+                            <p class="hero-description">
+                                Comprehensive property management solutions designed to maximize your rental income and minimize your stress. We handle everything from tenant screening to maintenance, so you can enjoy the benefits of property ownership without the headaches.
+                            </p>
+                            <button class="submit-btn"><a href="contactus.html">Free Consultation</a></button>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="service-detail-card text-center">
+                                <h3>Service Highlights</h3>
+                                <ul class="feature-list">
+                                    <li>24/7 Property Maintenance</li>
+                                    <li>Professional Tenant Screening</li>
+                                    <li>Timely Rent Collection</li>
+                                    <li>Regular Property Inspections</li>
+                                    <li>Legal Compliance Management</li>
+                                    <li>Financial Reporting</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="overview-section section-padding">
+                <div class="container">
+                    <div class="row text-center mb-4">
+                        <div class="col-12">
+                            <h2 class="mb-3">Service Overview</h2>
+                            <p class="lead">Complete property management tailored to your needs</p>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="service-detail-card">
+                                <div class="detail-icon">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                                <h3 class="detail-title">Tenant Management</h3>
+                                <p>Our comprehensive tenant management services include thorough background checks, lease preparation, move-in/move-out coordination, and ongoing tenant communication to ensure a smooth landlord-tenant relationship.</p>
+                                <ul class="feature-list">
+                                    <li>Detailed tenant screening and verification</li>
+                                    <li>Lease agreement preparation and execution</li>
+                                    <li>Move-in and move-out inspections</li>
+                                    <li>Tenant relationship management</li>
+                                    <li>Conflict resolution services</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="service-detail-card">
+                                <div class="detail-icon">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <h3 class="detail-title">Maintenance & Repairs</h3>
+                                <p>We provide 24/7 maintenance support with a network of trusted contractors and service providers. From emergency repairs to routine maintenance, we ensure your property remains in excellent condition.</p>
+                                <ul class="feature-list">
+                                    <li>24/7 emergency repair services</li>
+                                    <li>Scheduled preventive maintenance</li>
+                                    <li>Vendor management and quality control</li>
+                                    <li>Regular property inspections</li>
+                                    <li>Emergency response coordination</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="service-detail-card">
+                                <div class="detail-icon">
+                                    <i class="fas fa-money-check-alt"></i>
+                                </div>
+                                <h3 class="detail-title">Financial Management</h3>
+                                <p>Complete financial oversight including rent collection, expense management, and detailed financial reporting. We ensure timely payments and provide transparent accounting for all transactions.</p>
+                                <ul class="feature-list">
+                                    <li>Automated rent collection system</li>
+                                    <li>Expense tracking and management</li>
+                                    <li>Monthly financial statements</li>
+                                    <li>Tax documentation preparation</li>
+                                    <li>Online payment portal access</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="service-detail-card">
+                                <div class="detail-icon">
+                                    <i class="fas fa-gavel"></i>
+                                </div>
+                                <h3 class="detail-title">Legal Compliance</h3>
+                                <p>Stay compliant with all local, state, and federal regulations. Our legal team ensures all documentation is up-to-date and handles any legal matters that may arise during the tenancy.</p>
+                                <ul class="feature-list">
+                                    <li>Lease compliance monitoring</li>
+                                    <li>Legal documentation updates</li>
+                                    <li>Eviction proceedings management</li>
+                                    <li>Regulatory compliance checks</li>
+                                    <li>Legal consultation support</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-padding">
+                <div class="container">
+                    <div class="row text-center mb-4">
+                        <div class="col-12">
+                            <h2 class="mb-3">Our Management Process</h2>
+                            <p class="lead">A systematic approach to efficient property management</p>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-3">
+                            <div class="process-step">
+                                <div class="step-number">1</div>
+                                <h4>Initial Assessment</h4>
+                                <p>Comprehensive property evaluation and management plan development</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="process-step">
+                                <div class="step-number">2</div>
+                                <h4>Tenant Placement</h4>
+                                <p>Screening, selection, and onboarding of qualified tenants</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="process-step">
+                                <div class="step-number">3</div>
+                                <h4>Ongoing Management</h4>
+                                <p>Regular maintenance, rent collection, and tenant communication</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="process-step">
+                                <div class="step-number">4</div>
+                                <h4>Performance Review</h4>
+                                <p>Monthly reports and periodic performance evaluations</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="benefits-section section-padding">
+                <div class="container">
+                    <div class="row text-center mb-4">
+                        <div class="col-12">
+                            <h2 class="mb-3">Key Benefits</h2>
+                            <p class="lead">Why choose our property management services</p>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="benefit-card">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h4>Higher Rental Income</h4>
+                                <p>Optimize rental rates based on market analysis and maximize your property's earning potential</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="benefit-card">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <h4>Time Savings</h4>
+                                <p>Free up your valuable time by letting us handle all property-related tasks and responsibilities</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="benefit-card">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h4>Reduced Vacancy</h4>
+                                <p>Minimize vacancy periods through effective marketing and tenant retention strategies</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="benefit-card">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-file-contract"></i>
+                                </div>
+                                <h4>Legal Protection</h4>
+                                <p>Stay protected with proper documentation and compliance with all housing regulations</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="benefit-card">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <h4>Quality Maintenance</h4>
+                                <p>Access to reliable contractors and timely maintenance to preserve property value</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="benefit-card">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                                <h4>Cost Efficiency</h4>
+                                <p>Reduce operational costs through bulk purchasing and negotiated vendor rates</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="faq-section section-padding">
+                <div class="container">
+                    <div class="row text-center mb-4">
+                        <div class="col-12">
+                            <h2 class="mb-3">Frequently Asked Questions</h2>
+                            <p class="lead">Find answers to common questions about our services</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFAQ(1)">
+                                    What types of properties do you manage?
+                                    <span class="faq-toggle">▼</span>
+                                </div>
+                                <div class="faq-answer" id="faq1">
+                                    We manage a wide range of residential properties including apartments, single-family homes, townhouses, condominiums, and multi-unit buildings. We also handle commercial properties and vacation rentals.
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFAQ(2)">
+                                    How do you screen potential tenants?
+                                    <span class="faq-toggle">▼</span>
+                                </div>
+                                <div class="faq-answer" id="faq2">
+                                    Our screening process includes credit checks, employment verification, income verification, rental history checks, and criminal background checks. We follow all fair housing laws and maintain strict screening criteria.
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFAQ(3)">
+                                    How are maintenance requests handled?
+                                    <span class="faq-toggle">▼</span>
+                                </div>
+                                <div class="faq-answer" id="faq3">
+                                    Tenants can submit maintenance requests through our online portal or mobile app. We prioritize requests based on urgency and dispatch our network of trusted contractors. Emergency repairs are handled 24/7.
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="contact-cta">
+                                <h2 style="color: white;">Ready to Simplify Property Management?</h2>
+                                <p style="color: white; opacity: 0.9; margin: 20px 0;">Contact us today for a free consultation and property assessment. Let us show you how our professional management services can maximize your rental income and minimize your stress.</p>
+         
+                                <p style="margin-top: 20px; color: white; opacity: 0.9;">
+                                    <i class="fas fa-phone" style="margin-right: 10px;"></i> Call now: +91-98765-43210
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="site-footer" id="contact">
+                <div class="container">
+                    <div class="footer-inner">
+                        <div class="row footer-grid g-4">
+                            <div class="col-md-4">
+                                <div class="footer-brand-title">
+                                    <h4 class="footer-column-title">Compass Housing Society</h4>
+                                </div>
+                                <p class="footer-text">
+                                    Leading real estate developer creating sustainable, modern living spaces.</p>
+                                <p class="footer-contact-line">
+                                    <span class="footer-label">Phone:</span> +91-98765-43210
+                                </p>
+                                <p class="footer-contact-line">
+                                    <span class="footer-label">Email:</span> info@compasshousing.com
+                                </p>
+                                <div class="footer-socials">
+                                    <a href="http://www.facebook.com" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="http://www.twitter.com" class="footer-social"><i class="fab fa-twitter"></i></a>
+                                    <a href="http://www.instagram.com" class="footer-social"><i class="fab fa-instagram"></i></a>
+                                    <a href="http://www.youtube.com" class="footer-social"><i class="fab fa-youtube"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-6">
+                                <h4 class="footer-column-title">Quick Links</h4>
+                                <ul class="footer-links">
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="aboutus.html">About us</a></li>
+                                    <li><a href="services.html">Services</a></li>
+                                    <li><a href="blog.html">Blog</a></li>
+                                    <li><a href="contactus.html">Contact us</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-2 col-sm-6">
+                                <h4 class="footer-column-title">Properties</h4>
+                                <ul class="footer-links">
+                                    <li><a href="#">Luxury Apartments</a></li>
+                                    <li><a href="#">Gated Communities</a></li>
+                                    <li><a href="#">Commercial Spaces</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="footer-single-image">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNG5nNLSmMON82KTP72Ri6WREo9apamINs9JE9M4cERa_V_UdDfu2ZOubVQVVLbPFxLEM&usqp=CAU" alt="Compass Housing Project">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-bottom">
+                            © Copyright Compass Housing Society 2024. All rights reserved.
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const body = document.body;
+            const themeToggles = document.querySelectorAll(".theme-toggle");
+            const storedTheme = localStorage.getItem("compass-theme");
+            if (storedTheme === "dark") {
+                body.classList.add("dark-mode");
+            } else {
+                body.classList.remove("dark-mode");
+                localStorage.setItem("compass-theme", "light");
+            }
+            themeToggles.forEach(toggle => {
+                toggle.addEventListener("click", function () {
+                    const isDark = body.classList.toggle("dark-mode");
+                    toggle.style.transform = "scale(0.95)";
+                    setTimeout(() => {
+                        toggle.style.transform = "scale(1)";
+                    }, 150);
+                    localStorage.setItem("compass-theme", isDark ? "dark" : "light");
+                });
+            });
+            const menuToggle = document.querySelector(".menu-toggle");
+            const navMenu = document.querySelector(".nav-menu");
+            const dropdownToggles = document.querySelectorAll(".dropdown-toggle-custom");
+            let activeDropdown = null;
+            function closeMenu() {
+                if (navMenu) navMenu.classList.remove("nav-open");
+            }
+            function closeAllDropdowns() {
+                document.querySelectorAll(".dropdown-menu-custom").forEach(menu => {
+                    menu.classList.remove("show");
+                });
+                activeDropdown = null;
+            }
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const dropdownMenu = this.nextElementSibling;
+                    if (activeDropdown && activeDropdown !== dropdownMenu) {
+                        activeDropdown.classList.remove("show");
+                    }
+                    dropdownMenu.classList.toggle("show");
+                    if (dropdownMenu.classList.contains("show")) {
+                        activeDropdown = dropdownMenu;
+                    } else {
+                        activeDropdown = null;
+                    }
+                });
+            });
+            document.addEventListener("click", function (e) {
+                if (!e.target.closest(".dropdown")) {
+                    closeAllDropdowns();
+                }
+                if (window.innerWidth <= 1030) {
+                    if (!e.target.closest(".nav-menu") && !e.target.closest(".menu-toggle") && navMenu.classList.contains("nav-open")) {
+                        closeMenu();
+                        if (menuToggle) menuToggle.textContent = "☰";
+                    }
+                }
+            });
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener("click", function () {
+                    navMenu.classList.toggle("nav-open");
+                    this.textContent = navMenu.classList.contains("nav-open") ? "✕" : "☰";
+                    if (!navMenu.classList.contains("nav-open")) {
+                        closeAllDropdowns();
+                    }
+                });
+            }
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    if (window.innerWidth <= 1030 && navMenu.classList.contains('nav-open')) {
+                        closeMenu();
+                        if (menuToggle) menuToggle.textContent = "☰";
+                    }
+                    closeAllDropdowns();
+                }
+            });
+            const normalLinks = document.querySelectorAll(".nav-item:not(.dropdown) .nav-link-custom, .nav-item:not(.dropdown) a");
+            normalLinks.forEach(l => {
+                l.addEventListener("click", function () {
+                    if (window.innerWidth <= 1030) {
+                        closeMenu();
+                        if (menuToggle) menuToggle.textContent = "☰";
+                    }
+                    closeAllDropdowns();
+                });
+            });
+            const mobileActionLinks = document.querySelectorAll(".mobile-actions a, .mobile-actions .theme-toggle, .mobile-actions .btn-register");
+            mobileActionLinks.forEach(link => {
+                link.addEventListener("click", function () {
+                    if (window.innerWidth <= 1030 && !this.classList.contains('theme-toggle')) {
+                        closeMenu();
+                        if (menuToggle) menuToggle.textContent = "☰";
+                    }
+                    closeAllDropdowns();
+                });
+            });
+            window.addEventListener("resize", () => {
+                if (window.innerWidth > 1030) {
+                    closeMenu();
+                    if (menuToggle) menuToggle.textContent = "☰";
+                    closeAllDropdowns();
+                }
+            });
+            body.addEventListener('transitionend', function(e) {
+                if (e.propertyName.includes('background-color') || e.propertyName.includes('color')) {
+                }
+            });
+        });
+
+        function toggleFAQ(id) {
+            const answer = document.getElementById('faq' + id);
+            const toggle = answer.previousElementSibling.querySelector('.faq-toggle');
+            answer.classList.toggle('open');
+            toggle.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
